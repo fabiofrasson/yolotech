@@ -1,12 +1,15 @@
 package com.yolotech.view;
 
 import com.yolotech.dao.PerfilAdminEmpresaDAO;
+import com.yolotech.model.Empresa;
 import com.yolotech.model.PerfilAdmin;
 import com.yolotech.model.PerfilAdminEmpresa;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
     public static <PefilAdminEmpresa> void main(String[] args) {
@@ -40,33 +43,70 @@ public class Main {
 //
 //        System.out.println(perfisAdmin);
 
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//        Calendar c = Calendar.getInstance();
-//        System.out.println("Data atual: " + sdf.format(c.getTime()));
-//        c.set(Calendar.DAY_OF_MONTH, 3); //seta o dia para o dia 3
-//        c.set(Calendar.MONTH, 11); //seta o mes para dezembro
-//        System.out.println("Data alterada: " + sdf.format(c.getTime()));
-//        c.add(Calendar.DAY_OF_MONTH, 10); //adiciona 10 dias a partir a ultima dada exibida
-//        System.out.println("Data alterada + 10 dias: " + sdf.format(c.getTime()));
-
         PerfilAdminEmpresa perfiladminempresa = new PerfilAdminEmpresa(
                 "Minha empresa LTDA ME", "09.551.794/0001-49", "" +
                 "Minha Empresa de Tecnologia", "45 3027-6893",
                 "45 99943-9105", "Rua Almirante Barroso, 59",
-                "https://www.minhaempresatec.com.br", Calendar.getInstance(),
+                "https://www.minhaempresatec.com.br", "2021-04-06",
+                true
+        );
+
+        PerfilAdminEmpresa perfiladminempresa2 = new PerfilAdminEmpresa(
+                "Minha empresa LTDA ME", "09.551.794/0001-49", "" +
+                "Minha Empresa de Tecnologia", "45 3027-6893",
+                "45 99943-9105", "Rua Almirante Barroso, 59",
+                "https://www.minhaempresatec.com.br", "2021-04-06",
+                true
+        );
+
+        PerfilAdminEmpresa perfiladminempresa3 = new PerfilAdminEmpresa(
+                "Minha empresa LTDA ME", "09.551.794/0001-49", "" +
+                "Minha Empresa de Tecnologia", "45 3027-6893",
+                "45 99943-9105", "Rua Almirante Barroso, 59",
+                "https://www.minhaempresatec.com.br", "2021-04-06",
+                true
+        );
+
+        PerfilAdminEmpresa perfiladminempresa4 = new PerfilAdminEmpresa(
+                "Minha empresa LTDA ME", "09.551.794/0001-49", "" +
+                "Minha Empresa de Tecnologia", "45 3027-6893",
+                "45 99943-9105", "Rua Almirante Barroso, 59",
+                "https://www.minhaempresatec.com.br", "2021-04-06",
+                true
+        );
+
+        PerfilAdminEmpresa perfiladminempresa5 = new PerfilAdminEmpresa(
+                "Minha empresa LTDA ME", "09.551.794/0001-49", "" +
+                "Minha Empresa de Tecnologia", "45 3027-6893",
+                "45 99943-9105", "Rua Almirante Barroso, 59",
+                "https://www.minhaempresatec.com.br", "2021-04-06",
                 true
         );
 
         PerfilAdminEmpresaDAO dao = new PerfilAdminEmpresaDAO();
 
         dao.adiciona(perfiladminempresa);
-        dao.adiciona(perfiladminempresa);
-        dao.adiciona(perfiladminempresa);
-        dao.adiciona(perfiladminempresa);
-        dao.adiciona(perfiladminempresa);
+        dao.adiciona(perfiladminempresa2);
+        dao.adiciona(perfiladminempresa3);
+        dao.adiciona(perfiladminempresa4);
+        dao.adiciona(perfiladminempresa5);
 
-        System.out.println("Gravado!");
+        System.out.println("Registro gravado!");
 
-        dao.lista();
+        List<Empresa> empresas = dao.lista();
+
+        for (Empresa empresa : empresas) {
+//            System.out.println();
+            System.out.println("-------------------------------------------");
+            System.out.println("Razão Social: " + empresa.getRazaoSocial());
+            System.out.println("CNPJ: " + empresa.getCnpj());
+            System.out.println("Nome de Fantasia: " + empresa.getNomeFantasia());
+            System.out.println("Número de telefone: " + empresa.getNumTelefone());
+            System.out.println("Celular: " + empresa.getNumCelularEmpresa());
+            System.out.println("Endereço: " + empresa.getEndereco());
+            System.out.println("Site: " + empresa.getSiteEmpresa());
+            System.out.println("Data de criação do cadastro: " + empresa.getDataCadastroEmpresa());
+            System.out.println("Cadastro ativo: " + empresa.isContaAtivaEmpresa());
+        }
     }
 }

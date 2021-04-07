@@ -1,9 +1,14 @@
 package com.yolotech.dao;
 
 import com.yolotech.factory.ConnectionFactory;
+import com.yolotech.model.Empresa;
 import com.yolotech.model.PerfilAdminEmpresa;
+import net.bytebuddy.asm.Advice;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PerfilAdminEmpresaDAO {
     private Connection connection;
@@ -19,7 +24,8 @@ public class PerfilAdminEmpresaDAO {
                 " values (?,?,?,?,?,?,?,?,?);";
 
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+//            LocalDate localdate = LocalDate.now();
 
             stmt.setString(1,perfilAdminEmpresa.getRazaoSocialEmpresa());
             stmt.setString(2,perfilAdminEmpresa.getCnpj());
@@ -28,7 +34,7 @@ public class PerfilAdminEmpresaDAO {
             stmt.setString(5,perfilAdminEmpresa.getNumCelularEmpresa());
             stmt.setString(6,perfilAdminEmpresa.getEnderecoEmpresa());
             stmt.setString(7,perfilAdminEmpresa.getSiteEmpresa());
-            stmt.setDate(8, new Date(perfilAdminEmpresa.getDataCadastroEmpresa().getTimeInMillis()));
+            stmt.setString(8, perfilAdminEmpresa.getDataCadastroEmpresa());
             stmt.setBoolean(9,perfilAdminEmpresa.isContaAtivaEmpresa());
 
             stmt.execute();
@@ -38,37 +44,30 @@ public class PerfilAdminEmpresaDAO {
         }
     }
 
-    public void lista() {
+    public List<Empresa> lista() {
         try {
-            PreparedStatement stmt = connection.prepareStatement("select * from perfiladminempresa");
-
+            List<Empresa> empresas = new ArrayList<Empresa>();
+            PreparedStatement stmt = this.connection.prepareStatement("select * from perfiladminempresa");
+//            LocalDate localdate = LocalDate.now();
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String razaoSocial = rs.getString("razaoSocial");
-                String cnpj = rs.getString("cnpj");
-                String nomefantasia = rs.getString("nomeFantasia");
-                String numtelefone = rs.getString("numTelefone");
-                String numcelularempresa = rs.getString("numCelularEmpresa");
-                String endereco = rs.getString("endereco");
-                String site = rs.getString("siteEmpresa");
-                Date datacadastroempresa = rs.getDate("dataCadastroEmpresa");
-                boolean contaativaempresa = rs.getBoolean("contaAtivaEmpresa");
+                Empresa empresa = new Empresa();
+                empresa.setRazaoSocial(rs.getString("razaoSocial"));
+                empresa.setCnpj(rs.getString("cnpj"));
+                empresa.setNomeFantasia(rs.getString("nomeFantasia"));
+                empresa.setNumTelefone(rs.getString("numTelefone"));
+                empresa.setNumCelularEmpresa(rs.getString("numCelularEmpresa"));
+                empresa.setEndereco(rs.getString("endereco"));
+                empresa.setSiteEmpresa(rs.getString("siteEmpresa"));
+                empresa.setDataCadastroEmpresa(rs.getString("dataCadastroEmpresa"));
+                empresa.setContaAtivaEmpresa(rs.getBoolean("contaAtivaEmpresa"));
 
-                System.out.println("Razão Social: " + razaoSocial);
-                System.out.println("CNPJ: " + cnpj);
-                System.out.println("Nome Fantasia: " + nomefantasia);
-                System.out.println("Telefone: " + numtelefone);
-                System.out.println("Celular: " + numcelularempresa);
-                System.out.println("Endereço: " + endereco);
-                System.out.println("Site: " + site);
-                System.out.println("Data de Cadastro: " + datacadastroempresa);
-                System.out.println();
+                empresas.add(empresa);
             }
-
             rs.close();
             stmt.close();
-            connection.close();
+            return empresas;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

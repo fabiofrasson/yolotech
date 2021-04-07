@@ -1,8 +1,5 @@
 package com.yolotech.model;
 
-import java.util.Calendar;
-import java.util.Date;
-
 public class PerfilAdminEmpresa {
     private String razaoSocialEmpresa;
     private String cnpj;
@@ -12,14 +9,14 @@ public class PerfilAdminEmpresa {
     private String enderecoEmpresa;
     private String siteEmpresa;
     private CampoDeEstudo quantCDE;
-    private Calendar dataCadastroEmpresa;
-    private Date ultimoLoginEmpresa;
+    private String dataCadastroEmpresa;
+    private String ultimoLoginEmpresa;
     private boolean contaAtivaEmpresa;
 
     public PerfilAdminEmpresa(String razaoSocialEmpresa, String cnpj, String nomeFantasia,
                               String numTelefone, String numCelularEmpresa,
                               String enderecoEmpresa, String siteEmpresa,
-                              Calendar dataCadastroEmpresa, boolean contaAtivaEmpresa) {
+                              String dataCadastroEmpresa, boolean contaAtivaEmpresa) {
         this.razaoSocialEmpresa = razaoSocialEmpresa;
         this.cnpj = cnpj;
         this.nomeFantasia = nomeFantasia;
@@ -87,11 +84,11 @@ public class PerfilAdminEmpresa {
         this.siteEmpresa = siteEmpresa;
     }
 
-    public Calendar getDataCadastroEmpresa() {
+    public String getDataCadastroEmpresa() {
         return dataCadastroEmpresa;
     }
 
-    public void setDataCadastroEmpresa(Calendar dataCadastroEmpresa) {
+    public void setDataCadastroEmpresa(String dataCadastroEmpresa) {
         this.dataCadastroEmpresa = dataCadastroEmpresa;
     }
 
